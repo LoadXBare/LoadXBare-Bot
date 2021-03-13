@@ -1,5 +1,6 @@
 import random
 import math
+import os
 import discord
 from discord.ext import commands
 
@@ -19,12 +20,18 @@ async def on_command(ctx):
 
 
 @client.command()
-async def ping(ctx):
-    embed = discord.Embed(color=0x1e507d)
-    embed.add_field(name='Ping',
-                    value=' :stopwatch: - ' + str(round(client.latency * 1000)) + 'ms',
-                    inline=False)
-    await ctx.send(embed=embed)
+async def load_cog(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
+
+
+@client.command()
+async def unload_cog(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
 
 @client.command()
@@ -182,7 +189,7 @@ async def help(ctx):
                           '`.loaf`, `.owo`, `.petthebot`, '
                           '`.petthebunger`, `.rate`, `.uwu`',
                     inline=False)
-    embed.set_footer(text='LoadXBare Bot v1.11.0')
+    embed.set_footer(text='LoadXBare Bot v1.12.0')
     await ctx.send(embed=embed)
 
 client.run('TOKEN')
