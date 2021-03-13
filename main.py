@@ -27,6 +27,15 @@ async def ping(ctx):
     await ctx.send(embed=embed)
 
 
+@client.command()
+async def code(ctx):
+    embed = discord.Embed(color=0x1e507d)
+    embed.add_field(name='Code',
+                    value='My code is publicly available to view on GitHub [here](https://github.com/LoadXBare/LoadXBare-Bot)!',
+                    inline=False)
+    await ctx.send(embed=embed)
+
+
 @client.command(aliases=['8ball'])
 async def _8ball(ctx, *args):
     if len(args) == 0:
@@ -166,14 +175,14 @@ async def help(ctx):
     embed = discord.Embed(title='__Commands List__',
                           color=0x1e507d)
     embed.add_field(name='Utility',
-                    value='`.help`, `.ping`',
+                    value='`.code`, `.help`, `.ping`',
                     inline=False)
     embed.add_field(name='Fun',
                     value='`.8ball`, `.bunger`, `.load`, '
                           '`.loaf`, `.owo`, `.petthebot`, '
                           '`.petthebunger`, `.rate`, `.uwu`',
                     inline=False)
-    embed.set_footer(text='LoadXBare Bot v1.10.1')
+    embed.set_footer(text='LoadXBare Bot v1.11.0')
     await ctx.send(embed=embed)
 
 client.run('TOKEN')
