@@ -9,9 +9,10 @@ class _8ball(commands.Cog):
 
     @commands.command(aliases=['8ball'])
     async def _8ball(self, ctx, *args):
+        embed_name = ':8ball: 8ball :8ball:'
         if len(args) == 0:
             embed = discord.Embed(color=0x1e507d)
-            embed.add_field(name='8ball',
+            embed.add_field(name=embed_name,
                             value=':warning: This command requires **1 or more** arguments!\n'
                                   'Example 1: `.8ball Is @LoadXBare a nerd?`\n'
                                   'Example 2: `.8ball Gaming?`',
@@ -26,8 +27,8 @@ class _8ball(commands.Cog):
                      'Very doubtful.', 'Without a doubt.',
                      'Yes – definitely.', 'Yes.', 'You may rely on it.']
         embed = discord.Embed(color=0x1e507d)
-        embed.add_field(name='8ball',
-                        value=f':8ball: {random.choice(responses)}',
+        embed.add_field(name=embed_name,
+                        value=f'{random.choice(responses)}',
                         inline=False)
         await ctx.send(embed=embed)
 
