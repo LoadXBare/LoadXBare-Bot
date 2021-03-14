@@ -17,36 +17,6 @@ async def on_command(ctx):
     print(f'{ctx.author} ran the command .{ctx.command} in #{ctx.channel}')
 
 
-@client.command()
-async def load_cog(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
-    embed = discord.Embed(color=0x1e507d)
-    embed.add_field(name=':gear: Cog :gear:',
-                    value=f'Successfully loaded the cog **{extension}**!',
-                    inline=False)
-    await ctx.send(embed=embed)
-
-
-@client.command()
-async def unload_cog(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    embed = discord.Embed(color=0x1e507d)
-    embed.add_field(name=':gear: Cog :gear:',
-                    value=f'Successfully unloaded the cog **{extension}**!',
-                    inline=False)
-    await ctx.send(embed=embed)
-
-
-@client.command()
-async def reload_cog(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    client.load_extension(f'cogs.{extension}')
-    embed = discord.Embed(color=0x1e507d)
-    embed.add_field(name=':gear: Cog :gear:',
-                    value=f'Successfully reloaded the cog **{extension}**!',
-                    inline=False)
-    await ctx.send(embed=embed)
-
 for subdir, dirs, files in os.walk('./cogs'):
     for filename in files:
         filepath = subdir[2:].replace('\\', '.') + '.' + filename[:-3]
