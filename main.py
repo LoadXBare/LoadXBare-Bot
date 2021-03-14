@@ -36,6 +36,17 @@ async def unload_cog(ctx, extension):
                     inline=False)
     await ctx.send(embed=embed)
 
+
+@client.command()
+async def reload_cog(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+    client.load_extension(f'cogs.{extension}')
+    embed = discord.Embed(color=0x1e507d)
+    embed.add_field(name=':gear: Cog :gear:',
+                    value=f'Successfully reloaded the cog **{extension}**!',
+                    inline=False)
+    await ctx.send(embed=embed)
+
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
