@@ -51,8 +51,6 @@ for subdir, dirs, files in os.walk('./cogs'):
     for filename in files:
         filepath = subdir[2:].replace('\\', '.') + '.' + filename[:-3]
         if filename.endswith('.py'):
-            print(filepath)
             client.load_extension(filepath)
-            print(f'Loaded {filepath}')
 
 client.run('TOKEN')
