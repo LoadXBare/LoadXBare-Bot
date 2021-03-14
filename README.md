@@ -6,6 +6,6 @@ If for whatever reason you wish to use any code found here then feel free to cop
 
 ## To-Do
 - [ ] Add better error handling / catching
-- [ ] Add 7 new commands (Context: https://discord.com/channels/796808100535468076/799220260695441418/820383244876775454)
-- [x] Add command to reload cogs
+- [ ] Add 7 new commands ([Context](https://discord.com/channels/796808100535468076/799220260695441418/820383244876775454))
+- [x] ~~Add command to reload cogs~~
 - [ ] Group related cogs together
