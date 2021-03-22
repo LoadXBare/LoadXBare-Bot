@@ -1,6 +1,5 @@
 from .bunger import Bunger
 from .eightball import EightBall
-from .load import Load
 from .loaf import Loaf
 from .owo import Owo
 from .petthebot import PetTheBot
@@ -12,7 +11,6 @@ from .uwu import Uwu
 def init_fun(client):
     client.add_cog(Bunger(client))
     client.add_cog(EightBall(client))
-    client.add_cog(Load(client))
     client.add_cog(Loaf(client))
     client.add_cog(Owo(client))
     client.add_cog(PetTheBot(client))

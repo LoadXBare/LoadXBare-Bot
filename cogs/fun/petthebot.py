@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from cogs.cog_settings import embed_color
 
 
 class PetTheBot(commands.Cog):
@@ -8,7 +9,7 @@ class PetTheBot(commands.Cog):
 
     @commands.command()
     async def petthebot(self, ctx):
-        embed = discord.Embed(color=0x1e507d)
+        embed = discord.Embed(color=embed_color)
         embed.set_image(url='https://i.imgur.com/sOA7hzb.gif')
         await ctx.reply(embed=embed,
                         mention_author=False)
