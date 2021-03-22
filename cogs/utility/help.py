@@ -18,7 +18,7 @@ class Help(commands.Cog):
                         value='`.8ball`, `.bunger`, `.loaf`, `.owo`, `.petthebot`, `.petthebunger`, `.rate`, `.uwu`',
                         inline=False)
         embed.add_field(name=':person_standing: User :person_standing:',
-                        value='`.lino`, `.load`, `.pengu`, `.tofu`',
+                        value='`.dragon`, `.eli`, `.lino`, `.load`, `.noham`, `.pengu`, `.qtip`, `.tofu`',
                         inline=False)
         embed.set_footer(text='LoadXBare Bot | Owner: LoadXBare#7156',
                          icon_url='https://i.imgur.com/RDuA1YW.png')

@@ -4,7 +4,7 @@ from .lino import Lino
 from .load import Load
 from .noham import Noham
 from .pengu import Pengu
-from qtip import Qtip
+from .qtip import Qtip
 from .tofu import Tofu
 
 
