@@ -15,8 +15,5 @@ class Loaf(commands.Cog):
                               'Perhaps you meant to run the command `.load`',
                         inline=False)
         embed.set_image(url='https://i.imgur.com/NAdoFK6.png')
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Loaf(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

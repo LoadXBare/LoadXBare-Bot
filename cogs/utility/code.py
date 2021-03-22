@@ -13,8 +13,5 @@ class Code(commands.Cog):
         embed.add_field(name=embed_name,
                         value='My code is publicly available to view on GitHub [here](https://github.com/LoadXBare/LoadXBare-Bot)!',
                         inline=False)
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Code(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

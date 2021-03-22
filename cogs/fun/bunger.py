@@ -10,8 +10,5 @@ class Bunger(commands.Cog):
     async def bunger(self, ctx):
         embed = discord.Embed(color=0x1e507d)
         embed.set_image(url='https://i.imgur.com/SlkSrxI.gif')
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Bunger(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

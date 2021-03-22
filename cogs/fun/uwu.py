@@ -10,8 +10,5 @@ class Uwu(commands.Cog):
     async def uwu(self, ctx):
         embed = discord.Embed(color=0x1e507d)
         embed.set_image(url='https://i.imgur.com/jJfknqA.png')
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Uwu(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

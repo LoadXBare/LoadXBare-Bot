@@ -10,8 +10,5 @@ class Owo(commands.Cog):
     async def owo(self, ctx):
         embed = discord.Embed(color=0x1e507d)
         embed.set_image(url='https://i.imgur.com/M9oRGbT.png')
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Owo(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

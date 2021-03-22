@@ -18,7 +18,8 @@ class Rate(commands.Cog):
                                   'Example 1: `.rate @LoadXBare`\n'
                                   'Example 2: `.rate "Among Us"`',
                             inline=False)
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
             return
 
         if len(args[0]) > 32:
@@ -26,7 +27,8 @@ class Rate(commands.Cog):
             embed.add_field(name=embed_name,
                             value=':warning: The thing you are rating cannot exceed **32** characters!',
                             inline=False)
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
             return
 
         if args[0] == '<@!819664773146345503>' or args[0] == '<@819664773146345503>':
@@ -35,7 +37,8 @@ class Rate(commands.Cog):
                             value='I will always be a **10 / 10**',
                             inline=False)
             embed.set_image(url='https://i.imgur.com/1dqEXs5.png')
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
             return
 
         rating = random.randint(0, 101)
@@ -53,14 +56,12 @@ class Rate(commands.Cog):
                                 value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
                                 inline=False)
                 embed.set_image(url='https://i.imgur.com/G4AvmnO.png')
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed,
+                                mention_author=False)
             else:
                 embed = discord.Embed(color=0x1e507d)
                 embed.add_field(name=embed_name,
                                 value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
                                 inline=False)
-                await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Rate(client))
+                await ctx.reply(embed=embed,
+                                mention_author=False)

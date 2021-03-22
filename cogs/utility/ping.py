@@ -13,8 +13,5 @@ class Ping(commands.Cog):
         embed.add_field(name=embed_name,
                         value=f'{round(self.client.latency * 1000)}ms',
                         inline=False)
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(Ping(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

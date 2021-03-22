@@ -3,12 +3,12 @@ import discord
 from discord.ext import commands
 
 
-class _8ball(commands.Cog):
+class EightBall(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     @commands.command(aliases=['8ball'])
-    async def _8ball(self, ctx, *args):
+    async def eightball(self, ctx, *args):
         embed_name = ':8ball: 8ball :8ball:'
         if len(args) == 0:
             embed = discord.Embed(color=0x1e507d)
@@ -17,7 +17,8 @@ class _8ball(commands.Cog):
                                   'Example 1: `.8ball Is @LoadXBare a nerd?`\n'
                                   'Example 2: `.8ball Gaming?`',
                             inline=False)
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
             return
         responses = ['As I see it, yes.', 'Don’t count on it.',
                      'It is certain.', 'It is decidedly so.',
@@ -30,8 +31,5 @@ class _8ball(commands.Cog):
         embed.add_field(name=embed_name,
                         value=f'{random.choice(responses)}',
                         inline=False)
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(_8ball(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)

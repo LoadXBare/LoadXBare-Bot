@@ -10,8 +10,5 @@ class PetTheBot(commands.Cog):
     async def petthebot(self, ctx):
         embed = discord.Embed(color=0x1e507d)
         embed.set_image(url='https://i.imgur.com/sOA7hzb.gif')
-        await ctx.send(embed=embed)
-
-
-def setup(client):
-    client.add_cog(PetTheBot(client))
+        await ctx.reply(embed=embed,
+                        mention_author=False)
