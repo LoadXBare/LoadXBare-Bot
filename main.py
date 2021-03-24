@@ -1,8 +1,7 @@
 from discord.ext import commands
-from cogs.init_cogs import init_cogs
+from cogs.__init__ import init_cogs
 
-client = commands.Bot(command_prefix='.')
-client.remove_command('help')
+client = commands.Bot(command_prefix='.', help_command=None)
 
 init_cogs(client)
 

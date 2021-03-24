@@ -10,6 +10,7 @@ class PetTheBot(commands.Cog):
     @commands.command()
     async def petthebot(self, ctx):
         embed = discord.Embed(color=embed_color)
-        embed.set_image(url='https://i.imgur.com/sOA7hzb.gif')
+
+        embed.set_image(url='https://i.imgur.com/1Ow6yFG.gif')
         await ctx.reply(embed=embed,
                         mention_author=False)

@@ -9,11 +9,12 @@ class Lino(commands.Cog):
 
     @commands.command()
     async def lino(self, ctx):
-        embed_name = 'Lino'
-        embed = discord.Embed(color=embed_color)
-        embed.add_field(name=embed_name,
-                        value='sup mortal',
-                        inline=False)
+        user = await discord.Client.fetch_user(self=self.client, user_id=332142876207349764)
+        embed = discord.Embed(title='> sup mortal',
+                              color=embed_color)
+
+        embed.set_author(name='Lino',
+                         icon_url=user.avatar_url)
         embed.set_image(url='https://i.imgur.com/moXGRdf.png')
         await ctx.reply(embed=embed,
                         mention_author=False)

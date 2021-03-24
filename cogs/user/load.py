@@ -9,7 +9,12 @@ class Load(commands.Cog):
 
     @commands.command()
     async def load(self, ctx):
-        embed = discord.Embed(color=embed_color)
+        user = await discord.Client.fetch_user(self=self.client, user_id=455321156224942091)
+        embed = discord.Embed(title='> UwU',
+                              color=embed_color)
+
+        embed.set_author(name='Load',
+                         icon_url=user.avatar_url)
         embed.set_image(url='https://i.imgur.com/bsLgC8a.png')
         await ctx.reply(embed=embed,
                         mention_author=False)

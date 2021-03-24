@@ -11,6 +11,8 @@ class Help(commands.Cog):
     async def help(self, ctx):
         embed = discord.Embed(title='__Commands List__',
                               color=embed_color)
+        user = self.client.user
+
         embed.add_field(name=':tools: Utility :tools:',
                         value='`.code`, `.help`, `.ping`',
                         inline=False)
@@ -20,7 +22,6 @@ class Help(commands.Cog):
         embed.add_field(name=':person_standing: User :person_standing:',
                         value='`.dragon`, `.eli`, `.lino`, `.load`, `.noham`, `.pengu`, `.qtip`, `.tofu`',
                         inline=False)
-        embed.set_footer(text='LoadXBare Bot | Owner: LoadXBare#7156',
-                         icon_url='https://i.imgur.com/RDuA1YW.png')
+        embed.set_thumbnail(url=user.avatar_url)
         await ctx.reply(embed=embed,
                         mention_author=False)

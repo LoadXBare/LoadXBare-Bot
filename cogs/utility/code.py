@@ -11,6 +11,7 @@ class Code(commands.Cog):
     async def code(self, ctx):
         embed_name = '<:code:820378072427528213> Code <:code:820378072427528213>'
         embed = discord.Embed(color=embed_color)
+
         embed.add_field(name=embed_name,
                         value='My code is publicly available to view on '
                               'GitHub [here](https://github.com/LoadXBare/LoadXBare-Bot)!',

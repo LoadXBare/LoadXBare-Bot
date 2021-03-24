@@ -9,9 +9,9 @@ class Loaf(commands.Cog):
 
     @commands.command()
     async def loaf(self, ctx):
-        embed_name = ':bread: LoafXBare :bread:'
         embed = discord.Embed(color=embed_color)
-        embed.add_field(name=embed_name,
+
+        embed.add_field(name=':bread: LoafXBare :bread:',
                         value='I am not a loaf of bread ;-;\n'
                               'Perhaps you meant to run the command `.load`',
                         inline=False)

@@ -10,6 +10,7 @@ class PetTheBunger(commands.Cog):
     @commands.command()
     async def petthebunger(self, ctx):
         embed = discord.Embed(color=embed_color)
+
         embed.set_image(url='https://i.imgur.com/avHG1hq.gif')
         await ctx.reply(embed=embed,
                         mention_author=False)

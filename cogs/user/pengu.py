@@ -10,10 +10,12 @@ class Pengu(commands.Cog):
 
     @commands.command()
     async def pengu(self, ctx):
-        embed_name = 'Pengu'
-        embed = discord.Embed(color=embed_color)
-        embed.add_field(name=embed_name,
-                        value='[PLACEHOLDER]',
-                        inline=False)
+        user = await discord.Client.fetch_user(self=self.client, user_id=322063964219637771)
+        embed = discord.Embed(title='> AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+                              color=embed_color)
+
+        embed.set_author(name='Pengu',
+                         icon_url=user.avatar_url)
+        embed.set_image(url='https://i.imgur.com/XbOlLJl.gif')
         await ctx.reply(embed=embed,
                         mention_author=False)

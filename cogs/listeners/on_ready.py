@@ -10,7 +10,3 @@ class OnReady(commands.Cog):
     async def on_ready(self):
         await self.client.change_presence(activity=discord.Game(name='UwU | .help'))
         print(f'Successfully logged in as {self.client.user}, id: {self.client.user.id}!')
-
-
-def setup(client):
-    client.add_cog(OnReady(client))

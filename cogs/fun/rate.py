@@ -12,8 +12,10 @@ class Rate(commands.Cog):
     @commands.command()
     async def rate(self, ctx, *args):
         embed_name = ':memo: Rate :memo:'
+        embed = discord.Embed(color=embed_color)
+        rating = random.randint(0, 101)
+
         if len(args) > 1 or len(args) == 0:
-            embed = discord.Embed(color=embed_color)
             embed.add_field(name=embed_name,
                             value=':warning: This command requires **1** argument!\n'
                                   'Example 1: `.rate @LoadXBare`\n'
@@ -24,7 +26,6 @@ class Rate(commands.Cog):
             return
 
         if len(args[0]) > 128:
-            embed = discord.Embed(color=embed_color)
             embed.add_field(name=embed_name,
                             value=':warning: The thing you are rating cannot exceed **128** characters!',
                             inline=False)
@@ -33,7 +34,6 @@ class Rate(commands.Cog):
             return
 
         if args[0] == '<@!819664773146345503>' or args[0] == '<@819664773146345503>':
-            embed = discord.Embed(color=embed_color)
             embed.add_field(name=embed_name,
                             value='I will always be a **10 / 10**',
                             inline=False)
@@ -42,9 +42,7 @@ class Rate(commands.Cog):
                             mention_author=False)
             return
 
-        rating = random.randint(0, 101)
         if rating == 101:
-            embed = discord.Embed(color=embed_color)
             embed.add_field(name=embed_name,
                             value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
                             inline=False)
@@ -52,7 +50,6 @@ class Rate(commands.Cog):
         else:
             rating = int(math.ceil(rating / 10.0))
             if rating == 10:
-                embed = discord.Embed(color=embed_color)
                 embed.add_field(name=embed_name,
                                 value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
                                 inline=False)
@@ -60,7 +57,6 @@ class Rate(commands.Cog):
                 await ctx.reply(embed=embed,
                                 mention_author=False)
             else:
-                embed = discord.Embed(color=embed_color)
                 embed.add_field(name=embed_name,
                                 value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
                                 inline=False)

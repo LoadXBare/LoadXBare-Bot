@@ -10,10 +10,11 @@ class Qtip(commands.Cog):
 
     @commands.command()
     async def qtip(self, ctx):
-        embed_name = 'qTiP'
-        embed = discord.Embed(color=embed_color)
-        embed.add_field(name=embed_name,
-                        value='[PLACEHOLDER]',
-                        inline=False)
+        user = await discord.Client.fetch_user(self=self.client, user_id=453976398701395968)
+        embed = discord.Embed(title='> [PLACEHOLDER]',
+                              color=embed_color)
+
+        embed.set_author(name='qTiP',
+                         icon_url=user.avatar_url)
         await ctx.reply(embed=embed,
                         mention_author=False)

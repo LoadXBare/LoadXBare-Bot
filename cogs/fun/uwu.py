@@ -10,6 +10,7 @@ class Uwu(commands.Cog):
     @commands.command()
     async def uwu(self, ctx):
         embed = discord.Embed(color=embed_color)
+
         embed.set_image(url='https://i.imgur.com/jJfknqA.png')
         await ctx.reply(embed=embed,
                         mention_author=False)
