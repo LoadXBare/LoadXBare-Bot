@@ -19,5 +19,5 @@ class Load(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
         if ctx.channel.id == 799220260695441418:
-            embed.set_image(url='https://i.imgur.com/0E9SUSm.png')
+            embed.set_image(url='https://i.imgur.com/nfOAOBg.png')
             await ctx.send(embed=embed)

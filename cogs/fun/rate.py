@@ -14,18 +14,20 @@ class Rate(commands.Cog):
         embed_name = ':memo: Rate :memo:'
         embed = discord.Embed(color=embed_color)
         rating = random.randint(0, 101)
+        print(ctx.message.content)
+        query = ' '.join(args)
+        query = query.replace('_', '').replace('*', '').replace('`', '')
 
-        if len(args) > 1 or len(args) == 0:
+        if len(query) == 0:
             embed.add_field(name=embed_name,
-                            value=':warning: This command requires **1** argument!\n'
+                            value=':warning: This command requires **1 or more** arguments!\n'
                                   'Example 1: `.rate @LoadXBare`\n'
-                                  'Example 2: `.rate "Among Us"`',
+                                  'Example 2: `.rate Among Us`',
                             inline=False)
             await ctx.reply(embed=embed,
                             mention_author=False)
             return
-
-        if len(args[0]) > 128:
+        elif len(query) > 128:
             embed.add_field(name=embed_name,
                             value=':warning: The thing you are rating cannot exceed **128** characters!',
                             inline=False)
@@ -33,7 +35,7 @@ class Rate(commands.Cog):
                             mention_author=False)
             return
 
-        if args[0] == '<@!819664773146345503>' or args[0] == '<@819664773146345503>':
+        if query == '<@!819664773146345503>' or query == '<@819664773146345503>':
             embed.add_field(name=embed_name,
                             value='I will always be a **10 / 10**',
                             inline=False)
@@ -43,22 +45,19 @@ class Rate(commands.Cog):
             return
 
         if rating == 101:
-            embed.add_field(name=embed_name,
-                            value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
-                            inline=False)
-            embed.set_image(url='https://i.imgur.com/XyX0Xip.gif')
+            rating = 11
         else:
             rating = int(math.ceil(rating / 10.0))
-            if rating == 10:
-                embed.add_field(name=embed_name,
-                                value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
-                                inline=False)
-                embed.set_image(url='https://i.imgur.com/G4AvmnO.png')
-                await ctx.reply(embed=embed,
-                                mention_author=False)
-            else:
-                embed.add_field(name=embed_name,
-                                value='Hmmm, I would rate **' + args[0] + '** at a solid **' + str(rating) + ' / 10**!',
-                                inline=False)
-                await ctx.reply(embed=embed,
-                                mention_author=False)
+
+        responses = [f'Hmmm, I would rate **{query}** at a solid **{rating} / 10**!',
+                     f'I think **{query}** deserves a **{rating} / 10**!']
+        embed.add_field(name=embed_name,
+                        value=random.choice(responses),
+                        inline=False)
+
+        if rating == 11:
+            embed.set_image(url='https://i.imgur.com/XyX0Xip.gif')
+        elif rating == 10:
+            embed.set_image(url='https://i.imgur.com/G4AvmnO.png')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
