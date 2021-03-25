@@ -14,7 +14,6 @@ class Rate(commands.Cog):
         embed_name = ':memo: Rate :memo:'
         embed = discord.Embed(color=embed_color)
         rating = random.randint(0, 101)
-        print(ctx.message.content)
         query = ' '.join(args)
         query = query.replace('_', '').replace('*', '').replace('`', '')
 
@@ -50,7 +49,11 @@ class Rate(commands.Cog):
             rating = int(math.ceil(rating / 10.0))
 
         responses = [f'Hmmm, I would rate **{query}** at a solid **{rating} / 10**!',
-                     f'I think **{query}** deserves a **{rating} / 10**!']
+                     f'I think **{query}** deserves a **{rating} / 10**!',
+                     f'Heh, easy, **{query}** is a **{rating} / 10**!',
+                     f'**{query}**? Sounds like a **{rating} / 10**!',
+                     f'Oh, **{query}** is definitely a **{rating} / 10**!',
+                     f'**{query}** is a **{rating} / 10** in my books!']
         embed.add_field(name=embed_name,
                         value=random.choice(responses),
                         inline=False)
@@ -58,6 +61,15 @@ class Rate(commands.Cog):
         if rating == 11:
             embed.set_image(url='https://i.imgur.com/XyX0Xip.gif')
         elif rating == 10:
+            if len(args) == 1:
+                try:
+                    queryuser = query.replace('<', '').replace('!', '').replace('@', '').replace('>', '')
+                    await discord.Client.fetch_user(self=self.client, user_id=int(queryuser))
+                    embed.clear_fields()
+                    embed.add_field(name=embed_name,
+                                    value=f'Awww, **{query}** is a hecking cutie! **{rating} / 10**!')
+                except:
+                    pass
             embed.set_image(url='https://i.imgur.com/G4AvmnO.png')
         await ctx.reply(embed=embed,
                         mention_author=False)
