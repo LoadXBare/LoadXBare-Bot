@@ -15,12 +15,6 @@ class Rate(commands.Cog):
         embed = discord.Embed(color=embed_color)
         rating = random.randint(0, 101)
         query = ' '.join(args).replace('_', '').replace('*', '').replace('`', '')
-        responses = [f'Hmmm, I would rate **{query}** at a solid **{rating} / 10**!',
-                     f'I think **{query}** deserves a **{rating} / 10**!',
-                     f'Heh, easy, **{query}** is a **{rating} / 10**!',
-                     f'**{query}**? Sounds like a **{rating} / 10**!',
-                     f'Oh, **{query}** is definitely a **{rating} / 10**!',
-                     f'**{query}** is a **{rating} / 10** in my books!']
 
         if ctx.message.content.find('"') != -1:
             embed.add_field(name=embed_name,
@@ -60,6 +54,13 @@ class Rate(commands.Cog):
             rating = 11
         else:
             rating = int(math.ceil(rating / 10.0))
+
+        responses = [f'Hmmm, I would rate **{query}** at a solid **{rating} / 10**!',
+                     f'I think **{query}** deserves a **{rating} / 10**!',
+                     f'Heh, easy, **{query}** is a **{rating} / 10**!',
+                     f'**{query}**? Sounds like a **{rating} / 10**!',
+                     f'Oh, **{query}** is definitely a **{rating} / 10**!',
+                     f'**{query}** is a **{rating} / 10** in my books!']
 
         embed.add_field(name=embed_name,
                         value=random.choice(responses),
