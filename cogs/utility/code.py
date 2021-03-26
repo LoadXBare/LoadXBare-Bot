@@ -16,5 +16,6 @@ class Code(commands.Cog):
                         value='My code is publicly available to view on '
                               'GitHub [here](https://github.com/LoadXBare/LoadXBare-Bot)!',
                         inline=False)
+        embed.set_thumbnail(url='https://i.imgur.com/24dZX9G.png')
         await ctx.reply(embed=embed,
                         mention_author=False)
