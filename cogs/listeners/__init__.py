@@ -1,5 +1,4 @@
-from .on_command import OnCommand
-from .on_ready import OnReady
+from .listeners import OnCommand, OnReady
 
 
 def init_listeners(client):

@@ -1,12 +1,4 @@
-from .bunger import Bunger
-from .eightball import EightBall
-from .flip import Flip
-from .loaf import Loaf
-from .owo import Owo
-from .petthebot import PetTheBot
-from .petthebunger import PetTheBunger
-from .rate import Rate
-from .uwu import Uwu
+from .fun import Bunger, EightBall, Flip, Loaf, Owo, PetTheBot, PetTheBunger, Rate, Uwu
 
 
 def init_fun(client):

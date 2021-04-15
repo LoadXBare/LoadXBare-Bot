@@ -1,11 +1,4 @@
-from .dragon import Dragon
-from .eli import Eli
-from .lino import Lino
-from .load import Load
-from .noham import Noham
-from .pengu import Pengu
-from .qtip import Qtip
-from .tofu import Tofu
+from .user import Dragon, Eli, Lino, Load, Noham, Pengu, Qtip, Tofu
 
 
 def init_user(client):

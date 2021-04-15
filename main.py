@@ -7,7 +7,7 @@ client = commands.Bot(command_prefix='.', help_command=None, case_insensitive=Tr
 
 init_cogs(client)
 load_dotenv()
-token = os.getenv('TOKEN')
+token = os.getenv('BOT_TOKEN')
 
 
 client.run(token)

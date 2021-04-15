@@ -1,6 +1,4 @@
-from .code import Code
-from .help import Help
-from .ping import Ping
+from .utility import Code, Help, Ping
 
 
 def init_utility(client):
