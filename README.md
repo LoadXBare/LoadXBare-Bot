@@ -7,4 +7,3 @@ Additionally, feel free to fork this repo, make changes and then create a pull r
 
 ## Planned
 * Add better error handling / catching
-* Add 7 new user commands
