@@ -1,3 +1,4 @@
+import datetime
 import os
 import discord
 from discord.ext import commands
@@ -59,6 +60,29 @@ class Ping(commands.Cog):
         embed = discord.Embed(color=ctx.author.color)
         embed.add_field(name=embed_name,
                         value=f'{round(self.client.latency * 1000)}ms',
+                        inline=False)
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+
+class Uptime(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+    @commands.command()
+    async def uptime(self, ctx):
+        embed_name = ':calendar: Uptime :calendar:'
+        delta_uptime = datetime.datetime.utcnow() - self.client.start_time
+        hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
+        minutes, seconds = divmod(remainder, 60)
+        days, hours = divmod(hours, 24)
+
+        embed = discord.Embed(color=ctx.author.color)
+        embed.add_field(name=embed_name,
+                        value=f'{days} days, '
+                              f'{hours} hours, '
+                              f'{minutes} minutes, '
+                              f'{seconds} seconds',
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)
