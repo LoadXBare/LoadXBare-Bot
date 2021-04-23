@@ -42,7 +42,7 @@ class Help(commands.Cog):
                               '`.qtip`, `.tofu`',
                         inline=False)
         embed.add_field(name=':tools: Utility :tools:',
-                        value='`.code`, `.help`, `.ping`',
+                        value='`.code`, `.help`, `.ping`, `.uptime`, `.usage`',
                         inline=False)
         embed.set_thumbnail(url=self.client.user.avatar_url)
         await ctx.reply(embed=embed,
@@ -83,6 +83,44 @@ class Uptime(commands.Cog):
                               f'{hours} hours, '
                               f'{minutes} minutes, '
                               f'{seconds} seconds',
+                        inline=False)
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+
+class Usage(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+    @commands.command()
+    async def usage(self, ctx, *args):
+        embed_name = ':1234: Usage :1234:'
+        embed = discord.Embed(color=ctx.author.color)
+
+        try:
+            query = args[0].lower()
+        except IndexError:
+            embed.add_field(name=embed_name,
+                            value=f':warning: This command requires **1** argument!\n'
+                                  f'Example 1: `{self.client.command_prefix}usage ping`\n'
+                                  f'Example 2: `{self.client.command_prefix}usage uptime`',
+                            inline=False)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
+            return
+
+        if query in self.client.command_name:
+            index = self.client.command_name.index(query)
+            embed.add_field(name=embed_name,
+                            value=f'The command `{query}` has been used '
+                                  f'**{self.client.command_times_used[index]}** times!',
+                            inline=False)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
+            return
+
+        embed.add_field(name=embed_name,
+                        value=f'The command `{query}` either **doesn\'t exist** or **hasn\'t been run yet**!',
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)

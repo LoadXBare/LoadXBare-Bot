@@ -8,7 +8,13 @@ class OnCommand(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        print(f'{ctx.author} ran the command .{ctx.command} in #{ctx.channel}')
+        if str(ctx.command) not in self.client.command_name:
+            self.client.command_name.append(str(ctx.command))
+            self.client.command_times_used.append(0)
+
+        if str(ctx.command) in self.client.command_name:
+            index = self.client.command_name.index(str(ctx.command))
+            self.client.command_times_used[index] += 1
 
 
 class OnReady(commands.Cog):
