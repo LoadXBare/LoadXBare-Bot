@@ -4,6 +4,3 @@
 
 If for whatever reason you wish to use any code found here then feel free to copy whatever you like!
 Additionally, feel free to fork this repo, make changes and then create a pull request as I'm open to contributions.
-
-## Planned
-* Add better error handling / catching
