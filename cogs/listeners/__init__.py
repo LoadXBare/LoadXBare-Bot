@@ -1,6 +1,5 @@
-from .listeners import OnCommand, OnReady
+from .listeners import Listeners
 
 
 def init_listeners(client):
-    client.add_cog(OnCommand(client))
-    client.add_cog(OnReady(client))
+    client.add_cog(Listeners(client))

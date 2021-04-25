@@ -4,47 +4,24 @@ import discord
 from discord.ext import commands
 
 
-class Dragon(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
-    @commands.command()
-    async def dragon(self, ctx):
-        user = await discord.Client.fetch_user(self=self.client, user_id=391660977449467904)
-        embed = discord.Embed(title='> Oh you poor Miserable Soul, '
-                                    'What lead you the misfortune of wanting to use a command about me? '
-                                    'Go hydrate yourself with some Dihydrogen Monoxide. Bye Bye Now.',
-                              color=ctx.author.color)
-
-        embed.set_author(name='Dragon',
-                         icon_url=user.avatar_url)
-        await ctx.reply(embed=embed,
-                        mention_author=False)
-
-
-class Eli(commands.Cog):
+class User(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     @commands.command()
     async def eli(self, ctx):
         user = await discord.Client.fetch_user(self=self.client, user_id=448232336472014858)
-        num = random.randint(0, 1)
-        images = [os.getenv('ELI_IMAGE_1'), os.getenv('ELI_IMAGE_2')]
-        responses = ['FiREA MALM', 'when you call eli short']
+        num = random.randrange(0, 3, 2)
+        responses = ['FiREA MALM', os.getenv('ELI_IMAGE_1'),
+                     'when you call eli short', os.getenv('ELI_IMAGE_2')]
         embed = discord.Embed(title=f'> {responses[num]}',
                               color=ctx.author.color)
 
         embed.set_author(name='Eli',
                          icon_url=user.avatar_url)
-        embed.set_image(url=images[num])
+        embed.set_image(url=responses[num + 1])
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Lino(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def lino(self, ctx):
@@ -57,11 +34,6 @@ class Lino(commands.Cog):
         embed.set_image(url=os.getenv('LINO_IMAGE'))
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Load(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def load(self, ctx):
@@ -78,11 +50,6 @@ class Load(commands.Cog):
             embed.set_image(url=os.getenv('LOAD_IMAGE_2'))
             await ctx.send(embed=embed)
 
-
-class Noham(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
     async def noham(self, ctx):
         user = await discord.Client.fetch_user(self=self.client, user_id=528846496620085248)
@@ -93,11 +60,6 @@ class Noham(commands.Cog):
                          icon_url=user.avatar_url)
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Pengu(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def pengu(self, ctx):
@@ -111,30 +73,20 @@ class Pengu(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class Qtip(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
     async def qtip(self, ctx):
         user = await discord.Client.fetch_user(self=self.client, user_id=453976398701395968)
-        num = random.randint(0, 1)
-        images = [os.getenv('QTIP_IMAGE_1'), os.getenv('QTIP_IMAGE_2')]
-        responses = ['I have never fapped', 'aha']
+        num = random.randrange(0, 3, 2)
+        responses = ['I have never fapped', os.getenv('QTIP_IMAGE_1'),
+                     'aha', os.getenv('QTIP_IMAGE_2')]
         embed = discord.Embed(title=f'> {responses[num]}',
                               color=ctx.author.color)
 
-        embed.set_image(url=images[num])
+        embed.set_image(url=responses[num + 1])
         embed.set_author(name='qTiP',
                          icon_url=user.avatar_url)
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Tofu(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def tofu(self, ctx):

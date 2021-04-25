@@ -2,9 +2,10 @@ import datetime
 import os
 import discord
 from discord.ext import commands
+from ..listeners import Listeners
 
 
-class Code(commands.Cog):
+class Utility(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -21,37 +22,40 @@ class Code(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class Help(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(title='__Commands List__',
                               color=ctx.author.color)
+        fun_commands_list, user_commands_list, utility_commands_list = [], [], []
+        fun_commands, user_commands, utility_commands = '', '', ''
+
+        for x in self.client.walk_commands():
+            if x.cog_name == 'User':
+                user_commands_list.append(str(x))
+            elif x.cog_name == 'Fun':
+                fun_commands_list.append(str(x))
+            elif x.cog_name == 'Utility':
+                utility_commands_list.append(str(x))
+
+        for x in fun_commands_list:
+            fun_commands += f'`{x}`, '
+        for x in user_commands_list:
+            user_commands += f'`{x}`, '
+        for x in utility_commands_list:
+            utility_commands += f'`{x}`, '
 
         embed.add_field(name=':tada: Fun :tada:',
-                        value='`.bunger`, `.8ball`, `.flip`, '
-                              '`.loaf`, `.owo`, `.petthebot`, '
-                              '`.petthebunger`, `.rate`, `.uwu`',
+                        value=fun_commands.rstrip(', '),
                         inline=False)
         embed.add_field(name=':person_standing: User :person_standing:',
-                        value='`.dragon`, `.eli`, `.lino`, '
-                              '`.load`, `.noham`, `.pengu`, '
-                              '`.qtip`, `.tofu`',
+                        value=user_commands.rstrip(', '),
                         inline=False)
         embed.add_field(name=':tools: Utility :tools:',
-                        value='`.code`, `.help`, `.ping`, `.uptime`, `.usage`',
+                        value=utility_commands.rstrip(', '),
                         inline=False)
         embed.set_thumbnail(url=self.client.user.avatar_url)
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Ping(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def ping(self, ctx):
@@ -63,11 +67,6 @@ class Ping(commands.Cog):
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Uptime(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def uptime(self, ctx):
@@ -87,40 +86,24 @@ class Uptime(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class Usage(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
-    async def usage(self, ctx, *args):
+    async def usage(self, ctx, *, arg):
         embed_name = ':1234: Usage :1234:'
         embed = discord.Embed(color=ctx.author.color)
+        query = arg.lower()
 
-        try:
-            query = args[0].lower()
-        except IndexError:
-            embed.add_field(name=embed_name,
-                            value=f':warning: This command requires **1** argument!\n'
-                                  f'Example 1: `{self.client.command_prefix}usage ping`\n'
-                                  f'Example 2: `{self.client.command_prefix}usage uptime`',
+        if query not in Listeners.command_name:
+            embed.add_field(name=':warning: Error :warning:',
+                            value=f'The command `{query}` either **doesn\'t exist** or **hasn\'t been run yet**!',
                             inline=False)
             await ctx.reply(embed=embed,
                             mention_author=False)
             return
 
-        if query in self.client.command_name:
-            index = self.client.command_name.index(query)
-            embed.add_field(name=embed_name,
-                            value=f'The command `{query}` has been used '
-                                  f'**{self.client.command_times_used[index]}** times!',
-                            inline=False)
-            await ctx.reply(embed=embed,
-                            mention_author=False)
-            return
-
+        index = Listeners.command_name.index(query)
         embed.add_field(name=embed_name,
-                        value=f'The command `{query}` either **doesn\'t exist** or **hasn\'t been run yet**!',
+                        value=f'The command `{query}` has been used '
+                              f'**{Listeners.command_times_used[index]}** times!',
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)

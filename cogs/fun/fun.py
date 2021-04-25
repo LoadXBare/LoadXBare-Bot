@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 
 
-class Bunger(commands.Cog):
+class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -17,13 +17,8 @@ class Bunger(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class EightBall(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command(aliases=['8ball'])
-    async def eightball(self, ctx, *args):
+    async def eightball(self, ctx, *, arg):
         embed_name = ':8ball: 8ball :8ball:'
         embed = discord.Embed(color=ctx.author.color)
         responses = ['As I see it, yes.', 'Don’t count on it.', 'It is certain.',
@@ -32,45 +27,25 @@ class EightBall(commands.Cog):
                      'Signs point to yes.', 'Very doubtful.', 'Without a doubt.',
                      'Yes – definitely.', 'Yes.', 'You may rely on it.']
 
-        if len(args) == 0:
-            embed.add_field(name=embed_name,
-                            value=':warning: This command requires **1 or more** arguments!\n'
-                                  'Example 1: `.8ball Is @LoadXBare a nerd?`\n'
-                                  'Example 2: `.8ball Gaming?`',
-                            inline=False)
-            await ctx.reply(embed=embed,
-                            mention_author=False)
-            return
-
         embed.add_field(name=embed_name,
                         value=random.choice(responses),
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class Flip(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
     async def flip(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
-        num = random.randint(0, 1)
-        responses = ['Heads!', 'Tails!']
-        images = [os.getenv('FLIP_IMAGE_1'), os.getenv('FLIP_IMAGE_2')]
+        num = random.randrange(0, 3, 2)
+        responses = ['Heads!', os.getenv('FLIP_IMAGE_1'),
+                     'Tails!', os.getenv('FLIP_IMAGE_2')]
 
         embed.add_field(name=':coin: Flip :coin:',
                         value=responses[num],
                         inline=False)
-        embed.set_image(url=images[num])
+        embed.set_image(url=responses[num + 1])
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Loaf(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def loaf(self, ctx):
@@ -84,11 +59,6 @@ class Loaf(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class Owo(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
     async def owo(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
@@ -96,11 +66,6 @@ class Owo(commands.Cog):
         embed.set_image(url=os.getenv('OWO_IMAGE'))
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class PetTheBot(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def petthebot(self, ctx):
@@ -110,11 +75,6 @@ class PetTheBot(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class PetTheBunger(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
     async def petthebunger(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
@@ -123,38 +83,16 @@ class PetTheBunger(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-
-class Rate(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
     @commands.command()
-    async def rate(self, ctx, *args):
+    async def rate(self, ctx, *, arg):
         embed_name = ':memo: Rate :memo:'
         embed = discord.Embed(color=ctx.author.color)
         rating = random.randint(0, 101)
-        query = ' '.join(args).replace('_', '').replace('*', '').replace('`', '')
+        query = arg.replace('_', '').replace('*', '').replace('`', '')
 
-        if ctx.message.content.find('"') != -1:
-            embed.add_field(name=embed_name,
-                            value=':warning: Refrain from using quotation marks as they may break the bot!',
-                            inline=False)
-            await ctx.reply(embed=embed,
-                            mention_author=False)
-            return
-
-        if len(query) == 0:
-            embed.add_field(name=embed_name,
-                            value=':warning: This command requires **1 or more** arguments!\n'
-                                  'Example 1: `.rate @LoadXBare`\n'
-                                  'Example 2: `.rate Among Us`',
-                            inline=False)
-            await ctx.reply(embed=embed,
-                            mention_author=False)
-            return
-        elif len(query) > 128:
-            embed.add_field(name=embed_name,
-                            value=':warning: The thing you are rating cannot exceed **128** characters!',
+        if len(query) > 128:
+            embed.add_field(name=':warning: Error :warning:',
+                            value='The thing you are rating cannot exceed **128** characters!',
                             inline=False)
             await ctx.reply(embed=embed,
                             mention_author=False)
@@ -188,23 +126,19 @@ class Rate(commands.Cog):
         if rating == 11:
             embed.set_image(url=os.getenv('RATE_IMAGE_2'))
         elif rating == 10:
-            if len(args) == 1:
-                try:
-                    queryuser = query.replace('<', '').replace('!', '').replace('@', '').replace('>', '')
-                    await discord.Client.fetch_user(self=self.client, user_id=int(queryuser))
-                    embed.clear_fields()
-                    embed.add_field(name=embed_name,
-                                    value=f'Awww, **{query}** is a hecking cutie! **{rating} / 10**!')
-                except:
-                    pass
+            # try/except statement to see if the user pinged another user as input
+            try:
+                queryuser = query.translate(str.maketrans({'<': '', '!': '', '@': '', '>': ''}))
+
+                await discord.Client.fetch_user(self=self.client, user_id=int(queryuser))
+                embed.clear_fields()
+                embed.add_field(name=embed_name,
+                                value=f'Awww, **{query}** is a hecking cutie! **{rating} / 10**!')
+            except ValueError:
+                pass
             embed.set_image(url=os.getenv('RATE_IMAGE_3'))
         await ctx.reply(embed=embed,
                         mention_author=False)
-
-
-class Uwu(commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
     @commands.command()
     async def uwu(self, ctx):
