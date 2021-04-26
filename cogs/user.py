@@ -5,15 +5,13 @@ from discord.ext import commands
 
 
 class User(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, client): self.client = client
 
     @commands.command()
     async def eli(self, ctx):
         user = await discord.Client.fetch_user(self=self.client, user_id=448232336472014858)
         num = random.randrange(0, 3, 2)
-        responses = ['FiREA MALM', os.getenv('ELI_IMAGE_1'),
-                     'when you call eli short', os.getenv('ELI_IMAGE_2')]
+        responses = ['FiREA MALM', os.getenv('ELI_IMAGE_1'), 'when you call eli short', os.getenv('ELI_IMAGE_2')]
         embed = discord.Embed(title=f'> {responses[num]}', color=ctx.author.color)
 
         embed.set_author(name='Eli', icon_url=user.avatar_url)
@@ -62,8 +60,7 @@ class User(commands.Cog):
     async def qtip(self, ctx):
         user = await discord.Client.fetch_user(self=self.client, user_id=453976398701395968)
         num = random.randrange(0, 3, 2)
-        responses = ['I have never fapped', os.getenv('QTIP_IMAGE_1'),
-                     'aha', os.getenv('QTIP_IMAGE_2')]
+        responses = ['I have never fapped', os.getenv('QTIP_IMAGE_1'), 'aha', os.getenv('QTIP_IMAGE_2')]
         embed = discord.Embed(title=f'> {responses[num]}', color=ctx.author.color)
 
         embed.set_image(url=responses[num + 1])

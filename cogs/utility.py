@@ -6,8 +6,7 @@ from cogs.listeners import Listeners
 
 
 class Utility(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, client): self.client = client
 
     @commands.command()
     async def code(self, ctx):
@@ -59,8 +58,5 @@ class Utility(commands.Cog):
         embed = discord.Embed(color=ctx.author.color)
 
         embed.add_field(name=embed_name,
-                        value=f'{days} days, '
-                              f'{hours} hours, '
-                              f'{minutes} minutes, '
-                              f'{seconds} seconds', inline=False)
+                        value=f'{days} days, {hours} hours, {minutes} minutes, {seconds} seconds', inline=False)
         await ctx.reply(embed=embed, mention_author=False)

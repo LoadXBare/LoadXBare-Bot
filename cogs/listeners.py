@@ -4,8 +4,7 @@ from discord.ext import commands
 
 
 class Listeners(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, client): self.client = client
 
     start_time = datetime.datetime.utcnow()
 
@@ -18,10 +17,8 @@ class Listeners(commands.Cog):
     async def on_command_error(self, ctx, error):
         ignored = (commands.CommandNotFound, )
 
-        if hasattr(ctx.command, 'on_error'):
-            return
-        elif isinstance(error, ignored):
-            return
+        if hasattr(ctx.command, 'on_error'): return
+        elif isinstance(error, ignored): return
         elif isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(color=ctx.author.color)
             embed.add_field(name='Error :warning:',

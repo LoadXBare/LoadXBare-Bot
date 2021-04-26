@@ -74,7 +74,7 @@ class Fun(commands.Cog):
         embed_name = 'Rate :memo:'
         embed = discord.Embed(color=ctx.author.color)
         rating = random.randint(0, 101)
-        query = arg.replace('_', '').replace('*', '').replace('`', '')
+        query = arg.translate(str.maketrans({'_': '', '*': '', '`': ''}))
 
         if len(query) > 128:
             embed.add_field(name='Error :warning:',
@@ -89,8 +89,7 @@ class Fun(commands.Cog):
             return
 
         if rating == 101: rating = 11
-        else:
-            rating = int(math.ceil(rating / 10.0))
+        else: rating = int(math.ceil(rating / 10.0))
 
         responses = [f'Hmmm, I would rate **{query}** at a solid **{rating} / 10**!',
                      f'I think **{query}** deserves a **{rating} / 10**!',
@@ -110,8 +109,7 @@ class Fun(commands.Cog):
                 await discord.Client.fetch_user(self=self.client, user_id=int(queryuser))
                 embed.clear_fields()
                 embed.add_field(name=embed_name, value=f'Awww, **{query}** is a hecking cutie! **{rating} / 10**!')
-            except ValueError:
-                pass
+            except ValueError: pass
             embed.set_image(url=os.getenv('RATE_IMAGE_3'))
         await ctx.reply(embed=embed, mention_author=False)
 
