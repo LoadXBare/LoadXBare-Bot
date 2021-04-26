@@ -1,11 +1,13 @@
-from cogs.fun.__init__ import init_fun
-from cogs.listeners.__init__ import init_listeners
-from cogs.user.__init__ import init_user
-from cogs.utility.__init__ import init_utility
+from dotenv import load_dotenv
+from cogs.fun import Fun
+from cogs.listeners import Listeners
+from cogs.user import User
+from cogs.utility import Utility
 
 
 def init_cogs(client):
-    init_fun(client)
-    init_listeners(client)
-    init_user(client)
-    init_utility(client)
+    load_dotenv()
+    client.add_cog(Fun(client))
+    client.add_cog(Listeners(client))
+    client.add_cog(User(client))
+    client.add_cog(Utility(client))
