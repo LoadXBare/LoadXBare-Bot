@@ -7,6 +7,9 @@ Additionally, feel free to fork this repo, make changes and then create a pull r
 
 ## Requirements
 LoadXBare Bot requires the following libraries:
+
 • discord.py
+
 • psycopg2
+
 • python-dotenv
