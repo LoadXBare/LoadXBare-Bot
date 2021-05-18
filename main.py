@@ -1,8 +1,10 @@
-import os
+from cogs.init_cogs import init_cogs
 from discord.ext import commands
-from cogs.__init__ import init_cogs
+import os
 
-client = commands.Bot(command_prefix='.', help_command=None, case_insensitive=True)
+client = commands.Bot(command_prefix='.',
+                      help_command=None,
+                      case_insensitive=True)
 init_cogs(client)
 
-client.run(os.getenv('BOT_TOKEN'))
+client.run(os.getenv('TOKEN'))

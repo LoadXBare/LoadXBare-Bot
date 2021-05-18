@@ -1,23 +1,26 @@
-import math
-import os
-import random
-import discord
+from cogs.constants import is_bot, database
 from discord.ext import commands
+import discord
+import math
+import random
+import re
 
 
 class Fun(commands.Cog):
-    def __init__(self, client): self.client = client
+    def __init__(self, client):
+        self.client = client
 
-    @commands.command()
+    @commands.command(name='bunger')
     async def bunger(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.set_image(url=os.getenv('BUNGER_IMAGE'))
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.set_image(url='https://i.imgur.com/h9Yg2VE.gif')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command(aliases=['8ball'])
-    async def eightball(self, ctx, *, arg):
-        embed_name = '8ball :8ball:'
+    @commands.command(aliases=['8b'],
+                      name='8ball')
+    async def eightball(self, ctx, *, args):
         embed = discord.Embed(color=ctx.author.color)
         responses = ['As I see it, yes.', 'Don’t count on it.', 'It is certain.',
                      'It is decidedly so.', 'Most likely.', 'My reply is no.',
@@ -25,71 +28,101 @@ class Fun(commands.Cog):
                      'Signs point to yes.', 'Very doubtful.', 'Without a doubt.',
                      'Yes – definitely.', 'Yes.', 'You may rely on it.']
 
-        embed.add_field(name=embed_name, value=random.choice(responses), inline=False)
-        await ctx.reply(embed=embed, mention_author=False)
+        if args.endswith('?') is False:
+            embed.add_field(name=':warning: Not a question!',
+                            value='That doesn\'t look like a question, end your sentence with a `?`.',
+                            inline=False)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
+            return
 
-    @commands.command()
+        embed.add_field(name=':8ball: 8ball',
+                        value=random.choice(responses),
+                        inline=False)
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+    @commands.command(aliases=['coin', 'coinflip'],
+                      name='flip')
     async def flip(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
-        num = random.randrange(0, 3, 2)
-        responses = ['Heads!', os.getenv('FLIP_IMAGE_1'), 'Tails!', os.getenv('FLIP_IMAGE_2')]
+        random_num = random.randrange(0, 3, 2)
+        responses = ['Heads!', 'https://i.imgur.com/qk9SJG1.png',
+                     'Tails!', 'https://i.imgur.com/NmQOV5v.png']
 
-        embed.add_field(name='Flip :coin:', value=responses[num], inline=False)
-        embed.set_image(url=responses[num + 1])
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.add_field(name=':coin: Flip',
+                        value=responses[random_num],
+                        inline=False)
+        embed.set_image(url=responses[random_num + 1])
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command()
+    @commands.command(name='loaf')
     async def loaf(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.add_field(name='LoafXBare :bread:',
+        embed.add_field(name=':bread: LoafXBare',
                         value='I am not a loaf of bread ;-;\n'
-                              'Perhaps you meant to run the command `.load`', inline=False)
-        embed.set_image(url=os.getenv('LOAF_IMAGE'))
-        await ctx.reply(embed=embed, mention_author=False)
+                              'Perhaps you meant to run the command `.load`',
+                        inline=False)
+        embed.set_image(url='')  # ToDo transparent pfp from Kat
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command()
+    @commands.command(name='owo')
     async def owo(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.set_image(url=os.getenv('OWO_IMAGE'))
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.set_image(url='https://i.imgur.com/JgzU6ih.png')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command()
+    @commands.command(aliases=['petbot'],
+                      name='petthebot')
     async def petthebot(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.set_image(url=os.getenv('PETTHEBOT_IMAGE'))
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.set_image(url='https://i.imgur.com/vrxxm3S.gif')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command()
+    @commands.command(aliases=['petbunger'],
+                      name='petthebunger')
     async def petthebunger(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.set_image(url=os.getenv('PETTHEBUNGER_IMAGE'))
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.set_image(url='https://i.imgur.com/CfFlQne.gif')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command()
-    async def rate(self, ctx, *, arg):
-        embed_name = 'Rate :memo:'
+    @commands.command(name='rate')
+    async def rate(self, ctx, *, args):
+        embed_name = ':memo: Rate'
         embed = discord.Embed(color=ctx.author.color)
         rating = random.randint(0, 101)
-        query = arg.translate(str.maketrans({'_': '', '*': '', '`': ''}))
+        query = re.sub('[_*`"\n]', '', args)
 
-        if len(query) > 128:
-            embed.add_field(name='Error :warning:',
-                            value='The thing you are rating cannot exceed **128** characters!', inline=False)
-            await ctx.reply(embed=embed, mention_author=False)
+        if len(query) > 128 or len(query) == 0:
+            embed.add_field(name=':warning: Too many characters!',
+                            value='The thing you are rating must be between **1 - 128** characters in length.',
+                            inline=False)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
+            return
+        if query in is_bot:
+            embed.add_field(name=embed_name,
+                            value='I will always be a **10 / 10** <:rate:839967557117149184>',
+                            inline=False)
+            embed.set_image(url='https://i.imgur.com/1oTcQhf.png')
+            await ctx.reply(embed=embed,
+                            mention_author=False)
             return
 
-        if query == '<@!819664773146345503>' or query == '<@819664773146345503>':
-            embed.add_field(name=embed_name, value='I will always be a **10 / 10**', inline=False)
-            embed.set_image(url=os.getenv('RATE_IMAGE_1'))
-            await ctx.reply(embed=embed, mention_author=False)
-            return
-
-        if rating == 101: rating = 11
-        else: rating = int(math.ceil(rating / 10.0))
+        if rating == 101:
+            rating = 11
+            embed.set_image(url='https://i.imgur.com/L8kOWon.gif')
+        else:
+            rating = int(math.ceil(rating / 10.0))
 
         responses = [f'Hmmm, I would rate **{query}** at a solid **{rating} / 10**!',
                      f'I think **{query}** deserves a **{rating} / 10**!',
@@ -98,24 +131,131 @@ class Fun(commands.Cog):
                      f'Oh, **{query}** is definitely a **{rating} / 10**!',
                      f'**{query}** is a **{rating} / 10** in my books!']
 
-        embed.add_field(name=embed_name, value=random.choice(responses), inline=False)
+        embed.add_field(name=embed_name,
+                        value=random.choice(responses),
+                        inline=False)
 
-        if rating == 11: embed.set_image(url=os.getenv('RATE_IMAGE_2'))
-        elif rating == 10:
-            # try/except statement to see if the user pinged another user as input
-            try:
-                queryuser = query.translate(str.maketrans({'<': '', '!': '', '@': '', '>': ''}))
-
-                await discord.Client.fetch_user(self=self.client, user_id=int(queryuser))
+        if rating == 10:
+            if await self.is_user(query):
                 embed.clear_fields()
-                embed.add_field(name=embed_name, value=f'Awww, **{query}** is a hecking cutie! **{rating} / 10**!')
-            except ValueError: pass
-            embed.set_image(url=os.getenv('RATE_IMAGE_3'))
-        await ctx.reply(embed=embed, mention_author=False)
+                embed.add_field(name=embed_name,
+                                value=f'Awww, **{query}** is a hecking cutie! **{rating} / 10**!')
+            embed.set_image(url='https://i.imgur.com/Uc0y3fH.png')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
 
-    @commands.command()
+    @commands.command(name='uwu')
     async def uwu(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.set_image(url=os.getenv('UWU_IMAGE'))
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.set_image(url='https://i.imgur.com/rjW3q5e.png')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+    @commands.command(name='love')
+    async def love(self, ctx, *, args):
+        ascii_value = 0
+        embed = discord.Embed(color=ctx.author.color)
+        embed_name = ':heart: Love'
+        query = re.sub('[_*`"\n]', '', args)
+
+        for character in query:
+            ascii_value += ord(character)
+
+        ascii_value += ctx.author.id
+        random.seed(ascii_value)
+        love_percent = random.randint(0, 100)
+
+        if love_percent == 100:
+            emote = ':revolving_hearts:'
+            embed.set_image(url='https://i.imgur.com/oXAkKmk.png')
+        elif 90 <= love_percent <= 99:
+            emote = ':gift_heart:'
+        elif 75 <= love_percent <= 89:
+            emote = ':sparkling_heart:'
+        elif 65 <= love_percent <= 74:
+            emote = ':heartpulse:'
+        elif 50 <= love_percent <= 64:
+            emote = ':two_hearts:'
+        elif 25 <= love_percent <= 49:
+            emote = ':heartbeat:'
+        elif 10 <= love_percent <= 24:
+            emote = ':heart:'
+        else:
+            emote = ':broken_heart:'
+
+        if query in is_bot:
+            embed.set_image(url='https://i.imgur.com/EHtN8of.png')
+            embed.add_field(name=embed_name,
+                            value='I\'m flattered, however I am a bot and so cannot love...',
+                            inline=False)
+        elif await self.is_user(query) and re.sub('[<@!>]', '', query) == str(ctx.author.id):
+            embed.add_field(name=embed_name,
+                            value='smh you should always love yourself! **100%**!',
+                            inline=False)
+            embed.set_image(url='https://i.imgur.com/SbeauiW.gif')
+        else:
+            embed.add_field(name=embed_name,
+                            value=f'**You** and **{query}** are **{love_percent}%** compatible! {emote}',
+                            inline=False)
+
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+    @commands.command(name='hug')
+    async def hug(self, ctx, arg):
+        embed = discord.Embed(color=ctx.author.color)
+        receiver_hugs_received, giver_hugs_given, giver_hugs_received = 0, 0, 0
+        values = []
+
+        if await self.is_user(arg) is False or str(ctx.author.id) == re.sub('[<@!>]', '', arg):
+            embed.add_field(name=':warning: Invalid user!',
+                            value=f'You must **ping another user** to use this command.',
+                            inline=False)
+            await ctx.reply(embed=embed,
+                            mention_author=False)
+            return
+        else:
+            receiver_id = re.sub('[<@!>]', '', arg)
+            giver_id = ctx.author.id
+
+        cursor = database.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS hugs (user_id VARCHAR(20), hugs_received VARCHAR(20), hugs_given VARCHAR(20), PRIMARY KEY(user_id))")
+        cursor.execute(f"INSERT INTO hugs VALUES ('{receiver_id}', '0', '0') ON CONFLICT DO NOTHING")
+        cursor.execute(f"INSERT INTO hugs VALUES ('{giver_id}', '0', '0') ON CONFLICT DO NOTHING")
+        database.commit()
+
+        cursor.execute(f"SELECT hugs_received, hugs_given FROM hugs WHERE user_id = '{giver_id}'")
+        for x in cursor:
+            for value in x:
+                values.append(int(value))
+        giver_hugs_received = values[0]
+        giver_hugs_given = values[1] + 1
+
+        cursor.execute(f"SELECT hugs_received FROM hugs WHERE user_id = '{receiver_id}'")
+        for x in cursor:
+            for value in x:
+                receiver_hugs_received = int(value) + 1
+
+        cursor.execute(f"UPDATE hugs SET hugs_received = '{receiver_hugs_received}' WHERE user_id = '{receiver_id}'")
+        cursor.execute(f"UPDATE hugs SET hugs_given = '{giver_hugs_given}' WHERE user_id = '{giver_id}'")
+        database.commit()
+        cursor.close()
+
+        embed.add_field(name=':people_hugging: Hug',
+                        value=f'You have given <@!{receiver_id}> a hug!\n'
+                              f'They have been hugged a total of **{receiver_hugs_received}** times!\n'
+                              f'<:hugs_received:843561957197086762> {giver_hugs_received} | <:hugs_given:843561815392518167> {giver_hugs_given}',
+                        inline=False)
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+    async def is_user(self, user_id):
+        try:
+            query_user = re.sub('[<@!>]', '', user_id)
+
+            await discord.Client.fetch_user(self=self.client,
+                                            user_id=int(query_user))
+        except:
+            return False
+        return True
