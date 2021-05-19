@@ -102,13 +102,9 @@ class Fun(commands.Cog):
         rating = random.randint(0, 101)
         query = re.sub('[_*`"\n]', '', args)
 
-        if len(query) > 128 or len(query) == 0:
-            embed.add_field(name=':warning: Too many characters!',
-                            value='The thing you are rating must be between **1 - 128** characters in length.',
-                            inline=False)
-            await ctx.reply(embed=embed,
-                            mention_author=False)
-            return
+        if not 0 < len(query) < 128:
+            raise Exception('Invalid query length')
+
         if query in is_bot:
             embed.add_field(name=embed_name,
                             value='I will always be a **10 / 10** <:rate:839967557117149184>',
@@ -158,6 +154,9 @@ class Fun(commands.Cog):
         embed = discord.Embed(color=ctx.author.color)
         embed_name = ':heart: Love'
         query = re.sub('[_*`"\n]', '', args)
+
+        if not 0 < len(query) < 128:
+            raise Exception('Invalid query length')
 
         for character in query:
             ascii_value += ord(character)
@@ -246,6 +245,30 @@ class Fun(commands.Cog):
                         value=f'You have given <@!{receiver_id}> a hug!\n'
                               f'They have been hugged a total of **{receiver_hugs_received}** times!\n'
                               f'<:hugs_received:843561957197086762> {giver_hugs_received} | <:hugs_given:843561815392518167> {giver_hugs_given}',
+                        inline=False)
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+    @commands.command(name='choose')
+    async def choose(self, ctx, *, args):
+        choices = []
+        embed = discord.Embed(color=ctx.author.color)
+        query = re.sub('[_*`"\n]', '', args)
+
+        if not 0 < len(query) < 128:
+            raise Exception('Invalid query length')
+
+        for arg in query.split(','):
+            choices.append(arg.strip())
+        choice = random.choice(choices)
+
+        responses = [f'I\'ll go for **{choice}**!', f'Hmm, I\'m thinking **{choice}**!',
+                     f'**{choice}** sounds good!', f'I\'m gonna go for **{choice}**!',
+                     f'Oh, definitely going for **{choice}**!', f'**{choice}** takes my fancy!',
+                     f'This is an easy one! **{choice}**!', f'ooh, let\'s go for **{choice}**!']
+
+        embed.add_field(name=':thinking: Choose',
+                        value=random.choice(responses),
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)
