@@ -253,13 +253,14 @@ class Fun(commands.Cog):
     async def choose(self, ctx, *, args):
         choices = []
         embed = discord.Embed(color=ctx.author.color)
-        query = re.sub('[_*`"\n]', '', args)
+        query = re.sub('[_*`"\n]', '', args).strip()
 
-        if not 0 < len(query) < 128:
+        if not 0 < len(query) < 128 or not 0 < len(query.replace(',', '').strip()) < 128:
             raise Exception('Invalid query length')
 
         for arg in query.split(','):
             choices.append(arg.strip())
+        choices = list(filter(('').__ne__, choices))
         choice = random.choice(choices)
 
         responses = [f'I\'ll go for **{choice}**!', f'Hmm, I\'m thinking **{choice}**!',
