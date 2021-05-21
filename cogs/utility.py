@@ -13,9 +13,9 @@ class Utility(commands.Cog):
     async def sourcecode(self, ctx):
         embed = discord.Embed(color=ctx.author.color)
 
-        embed.add_field(name='Source code <:code:820378072427528213>',
+        embed.add_field(name='Source code <:source_code:820378072427528213>',
                         value='My source code is publicly available to view on '
-                              'GitHub [here](https://github.com/LoadXBare/LoadXBare-Bot)!\n'
+                              'GitHub [here](https://github.com/LoadXBare/LoadXBot)!\n'
                               'You can also view the [Trello](https://trello.com/b/3WbHFrY8) for development updates!')
         embed.set_thumbnail(url='https://i.imgur.com/S4MmPpL.png')
         await ctx.reply(embed=embed,
