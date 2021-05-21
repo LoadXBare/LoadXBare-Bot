@@ -244,7 +244,7 @@ class Fun(commands.Cog):
         embed.add_field(name=':people_hugging: Hug',
                         value=f'You have given <@!{receiver_id}> a hug!\n'
                               f'They have been hugged a total of **{receiver_hugs_received}** times!\n'
-                              f'<:hugs_received:843561957197086762> {giver_hugs_received} | <:hugs_given:843561815392518167> {giver_hugs_given}',
+                              f'<:hugs_received:845338760422096966> {giver_hugs_received} | <:hugs_given:845338760312127528> {giver_hugs_given}',
                         inline=False)
         await ctx.reply(embed=embed,
                         mention_author=False)
