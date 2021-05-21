@@ -23,8 +23,7 @@ class Listeners(commands.Cog):
         elif isinstance(error, commands.MissingRequiredArgument):
             embed.add_field(name=':warning: Missing required arguments!',
                             value=f'The command `{self.client.command_prefix}{ctx.command}` '
-                                  f'requires **1 or more** arguments.',
-                            inline=False)
+                                  f'requires **1 or more** arguments.')
             await ctx.reply(embed=embed,
                             mention_author=False)
             return
@@ -32,8 +31,7 @@ class Listeners(commands.Cog):
         # Custom raised errors
         if 'Invalid query length' in str(error):
             embed.add_field(name=':warning: Invalid argument length!',
-                            value='The argument(s) you entered must be between **1 to 128** characters in length.',
-                            inline=False)
+                            value='The argument(s) you entered must be between **1 to 128** characters in length.')
             await ctx.reply(embed=embed,
                             mention_author=False)
             return

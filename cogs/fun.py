@@ -30,15 +30,13 @@ class Fun(commands.Cog):
 
         if args.endswith('?') is False:
             embed.add_field(name=':warning: Not a question!',
-                            value='That doesn\'t look like a question, end your sentence with a `?`.',
-                            inline=False)
+                            value='That doesn\'t look like a question, end your sentence with a `?`.')
             await ctx.reply(embed=embed,
                             mention_author=False)
             return
 
         embed.add_field(name=':8ball: 8ball',
-                        value=random.choice(responses),
-                        inline=False)
+                        value=random.choice(responses))
         await ctx.reply(embed=embed,
                         mention_author=False)
 
@@ -51,8 +49,7 @@ class Fun(commands.Cog):
                      'Tails!', 'https://i.imgur.com/NmQOV5v.png']
 
         embed.add_field(name=':coin: Flip',
-                        value=responses[random_num],
-                        inline=False)
+                        value=responses[random_num])
         embed.set_image(url=responses[random_num + 1])
         await ctx.reply(embed=embed,
                         mention_author=False)
@@ -95,8 +92,7 @@ class Fun(commands.Cog):
 
         if query in is_bot:
             embed.add_field(name=embed_name,
-                            value='I will always be a **10 / 10** <:rate:839967557117149184>',
-                            inline=False)
+                            value='I will always be a **10 / 10** <:rate:839967557117149184>')
             embed.set_image(url='https://i.imgur.com/1oTcQhf.png')
             await ctx.reply(embed=embed,
                             mention_author=False)
@@ -116,8 +112,7 @@ class Fun(commands.Cog):
                      f'**{query}** is a **{rating} / 10** in my books!']
 
         embed.add_field(name=embed_name,
-                        value=random.choice(responses),
-                        inline=False)
+                        value=random.choice(responses))
 
         if rating == 10:
             if await self.is_user(query):
@@ -174,17 +169,14 @@ class Fun(commands.Cog):
         if query in is_bot:
             embed.set_image(url='https://i.imgur.com/EHtN8of.png')
             embed.add_field(name=embed_name,
-                            value='I\'m flattered, however I am a bot and so cannot love...',
-                            inline=False)
+                            value='I\'m flattered, however I am a bot and so cannot love...')
         elif await self.is_user(query) and re.sub('[<@!>]', '', query) == str(ctx.author.id):
             embed.add_field(name=embed_name,
-                            value='smh you should always love yourself! **100%**!',
-                            inline=False)
+                            value='smh you should always love yourself! **100%**!')
             embed.set_image(url='https://i.imgur.com/SbeauiW.gif')
         else:
             embed.add_field(name=embed_name,
-                            value=f'**You** and **{query}** are **{love_percent}%** compatible! {emote}',
-                            inline=False)
+                            value=f'**You** and **{query}** are **{love_percent}%** compatible! {emote}')
 
         await ctx.reply(embed=embed,
                         mention_author=False)
@@ -197,8 +189,7 @@ class Fun(commands.Cog):
 
         if await self.is_user(arg) is False or str(ctx.author.id) == re.sub('[<@!>]', '', arg):
             embed.add_field(name=':warning: Invalid user!',
-                            value=f'You must **ping another user** to use this command.',
-                            inline=False)
+                            value=f'You must **ping another user** to use this command.')
             await ctx.reply(embed=embed,
                             mention_author=False)
             return
@@ -232,8 +223,7 @@ class Fun(commands.Cog):
         embed.add_field(name=':people_hugging: Hug',
                         value=f'You have given <@!{receiver_id}> a hug!\n'
                               f'They have been hugged a total of **{receiver_hugs_received}** times!\n'
-                              f'<:hugs_received:845338760422096966> {giver_hugs_received} | <:hugs_given:845338760312127528> {giver_hugs_given}',
-                        inline=False)
+                              f'<:hugs_received:845338760422096966> {giver_hugs_received} | <:hugs_given:845338760312127528> {giver_hugs_given}')
         await ctx.reply(embed=embed,
                         mention_author=False)
 
@@ -257,8 +247,7 @@ class Fun(commands.Cog):
                      f'This is an easy one! **{choice}**!', f'ooh, let\'s go for **{choice}**!']
 
         embed.add_field(name=':thinking: Choose',
-                        value=random.choice(responses),
-                        inline=False)
+                        value=random.choice(responses))
         await ctx.reply(embed=embed,
                         mention_author=False)
 

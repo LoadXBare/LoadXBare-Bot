@@ -16,8 +16,7 @@ class Utility(commands.Cog):
         embed.add_field(name='Source code <:code:820378072427528213>',
                         value='My source code is publicly available to view on '
                               'GitHub [here](https://github.com/LoadXBare/LoadXBare-Bot)!\n'
-                              'You can also view the [Trello](https://trello.com/b/3WbHFrY8) for development updates!',
-                        inline=False)
+                              'You can also view the [Trello](https://trello.com/b/3WbHFrY8) for development updates!')
         embed.set_thumbnail(url='https://i.imgur.com/S4MmPpL.png')
         await ctx.reply(embed=embed,
                         mention_author=False)
@@ -45,11 +44,9 @@ class Utility(commands.Cog):
             utility_commands += f'`{item}`, '
 
         embed.add_field(name='Fun :tada:',
-                        value=fun_commands.rstrip(', '),
-                        inline=False)
+                        value=fun_commands.rstrip(', '))
         embed.add_field(name='Utility :tools:',
-                        value=utility_commands.rstrip(', '),
-                        inline=False)
+                        value=utility_commands.rstrip(', '))
         embed.set_thumbnail(url=self.client.user.avatar_url)
         embed.set_footer(text='Developed by LoadXBare#7156')
         await ctx.reply(embed=embed,
@@ -60,8 +57,7 @@ class Utility(commands.Cog):
         embed = discord.Embed(color=ctx.author.color)
 
         embed.add_field(name='Ping :stopwatch:',
-                        value=f'{round(self.client.latency * 1000)}ms',
-                        inline=False)
+                        value=f'{round(self.client.latency * 1000)}ms')
         await ctx.reply(embed=embed,
                         mention_author=False)
 
@@ -74,7 +70,17 @@ class Utility(commands.Cog):
         minutes, seconds = divmod(remainder, 60)
 
         embed.add_field(name='Uptime :calendar:',
-                        value=f'{days} days, {hours} hours, {minutes} minutes, {seconds} seconds',
-                        inline=False)
+                        value=f'{days} days, {hours} hours, {minutes} minutes, {seconds} seconds')
+        await ctx.reply(embed=embed,
+                        mention_author=False)
+
+    @commands.command(name='invite',
+                      aliases=['inv'])
+    async def invite(self, ctx):
+        embed = discord.Embed(color=ctx.author.color)
+
+        embed.add_field(name='Invite :link:',
+                        value='Hey! You can invite me to other servers by clicking [here](https://discord.com/api/oauth2/authorize?client_id=819664773146345503&permissions=314432&scope=bot)!')
+        embed.set_thumbnail(url='https://i.imgur.com/fRrIJWk.png')
         await ctx.reply(embed=embed,
                         mention_author=False)
