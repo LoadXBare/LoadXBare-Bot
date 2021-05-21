@@ -57,18 +57,6 @@ class Fun(commands.Cog):
         await ctx.reply(embed=embed,
                         mention_author=False)
 
-    @commands.command(name='loaf')
-    async def loaf(self, ctx):
-        embed = discord.Embed(color=ctx.author.color)
-
-        embed.add_field(name=':bread: LoafXBare',
-                        value='I am not a loaf of bread ;-;\n'
-                              'Perhaps you meant to run the command `.load`',
-                        inline=False)
-        embed.set_image(url='')  # ToDo transparent pfp from Kat
-        await ctx.reply(embed=embed,
-                        mention_author=False)
-
     @commands.command(name='owo')
     async def owo(self, ctx):
         embed = discord.Embed(color=ctx.author.color)

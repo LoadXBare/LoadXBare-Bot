@@ -27,33 +27,25 @@ class Utility(commands.Cog):
     async def help(self, ctx):
         embed = discord.Embed(title='__Commands List__',
                               color=ctx.author.color)
-        fun_commands, user_commands, utility_commands = '', '', ''
-        fun_commands_list, user_commands_list, utility_commands_list = [], [], []
+        fun_commands, utility_commands = '', ''
+        fun_commands_list, utility_commands_list = [], []
 
         for command in self.client.walk_commands():
             if command.cog_name == 'Fun':
                 fun_commands_list.append(str(command))
-            elif command.cog_name == 'User':
-                user_commands_list.append(str(command))
             elif command.cog_name == 'Utility':
                 utility_commands_list.append(str(command))
 
         fun_commands_list = sorted(fun_commands_list)
-        user_commands_list = sorted(user_commands_list)
         utility_commands_list = sorted(utility_commands_list)
 
         for item in fun_commands_list:
             fun_commands += f'`{item}`, '
-        for item in user_commands_list:
-            user_commands += f'`{item}`, '
         for item in utility_commands_list:
             utility_commands += f'`{item}`, '
 
         embed.add_field(name='Fun :tada:',
                         value=fun_commands.rstrip(', '),
-                        inline=False)
-        embed.add_field(name='User :person_standing:',
-                        value=user_commands.rstrip(', '),
                         inline=False)
         embed.add_field(name='Utility :tools:',
                         value=utility_commands.rstrip(', '),
