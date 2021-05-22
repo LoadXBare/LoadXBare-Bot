@@ -141,7 +141,7 @@ class Fun(commands.Cog):
         if not 0 < len(query) < 128:
             raise Exception('Invalid query length')
 
-        for character in query:
+        for character in query.lower():
             ascii_value += ord(character)
 
         ascii_value += ctx.author.id
