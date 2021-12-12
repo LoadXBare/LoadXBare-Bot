@@ -1,4 +1,8 @@
 # LoadXBot
+<br></br>
+### This project is no longer being maintained!
+Some things may no longer work.
+<br></br>
 ## About
 **LoadXBot** (formerly LoadXBare Bot) is a Discord bot programmed in the Python programming language. It originally started out as a small gimmick project I was developing for a Discord server in order to better practise using Python and Discord.py however interest was expressed in having the bot go public and so is now being actively developed as a side hobby, whenever a bug is found and/or a new feature comes to mind, I'm right on programming it!
 
